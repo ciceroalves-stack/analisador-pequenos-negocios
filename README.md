@@ -1,7 +1,7 @@
 # 🏪 Analisador de Pequenos Negócios
 
 > O dono do restaurante envia o relatório de vendas, informa os custos do mês e recebe um **diagnóstico financeiro em linguagem simples** com um **plano de ação de 30 dias**.
-[LINK SO PROJETO](https://hvfsyjwwqtvpsq9jqk5puu.streamlit.app/)
+[LINK DO PROJETO](https://hvfsyjwwqtvpsq9jqk5puu.streamlit.app/)
 
 ## Problema de negócio
 
