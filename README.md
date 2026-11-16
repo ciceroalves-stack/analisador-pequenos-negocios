@@ -1,6 +1,7 @@
 # 🏪 Analisador de Pequenos Negócios
 
 > O dono do restaurante envia o relatório de vendas, informa os custos do mês e recebe um **diagnóstico financeiro em linguagem simples** com um **plano de ação de 30 dias**.
+[LINK SO PROJETO](https://hvfsyjwwqtvpsq9jqk5puu.streamlit.app/)
 
 ## Problema de negócio
 
@@ -32,8 +33,3 @@ Não precisa de nenhuma chave ou cadastro.
 - Comparar com restaurantes da mesma categoria e região (benchmark)
 - Enviar o diagnóstico mensal por WhatsApp
 
-## Publicar
-
-Em [share.streamlit.io](https://share.streamlit.io), crie um app apontando para este repositório e o arquivo `app.py`.
-
-> Dados de exemplo fictícios. Referências de mercado são aproximadas.
