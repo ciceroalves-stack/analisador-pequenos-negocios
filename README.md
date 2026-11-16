@@ -2,6 +2,8 @@
 
 > O dono do restaurante envia o relatório de vendas, informa os custos do mês e recebe um **diagnóstico financeiro em linguagem simples** com um **plano de ação de 30 dias**.
 
+### 🔗 [Abrir o app ao vivo](https://hvfsyjwwqtvpsq9jqk5puu.streamlit.app/)
+
 ## Problema de negócio
 
 A maioria dos pequenos restaurantes não sabe responder perguntas básicas: *qual é minha margem? quanto preciso vender para não ter prejuízo? quanto as taxas dos apps pesam?* Muitos fecham por falta de gestão financeira, não por falta de clientes.
