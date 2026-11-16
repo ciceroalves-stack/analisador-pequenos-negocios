@@ -1,37 +1,39 @@
 # 🏪 Analisador de Pequenos Negócios
 
-> O dono do restaurante informa os números do mês e recebe um **diagnóstico financeiro em linguagem simples** e um **plano de ação de 30 dias gerado por IA**.
+> O dono do restaurante envia o relatório de vendas, informa os custos do mês e recebe um **diagnóstico financeiro em linguagem simples** com um **plano de ação de 30 dias**.
 
 ## Problema de negócio
 
 A maioria dos pequenos restaurantes não sabe responder perguntas básicas: *qual é minha margem? quanto preciso vender para não ter prejuízo? quanto as taxas dos apps pesam?* Muitos fecham por falta de gestão financeira, não por falta de clientes.
 
-Para uma plataforma de delivery, a saúde financeira do parceiro é saúde do ecossistema: restaurante que quebra é oferta que some.
+Para uma plataforma de delivery, a saúde financeira do parceiro é a saúde do ecossistema: restaurante que quebra é oferta que some.
 
-## Solução
+## Como funciona
 
 | Etapa | O que faz |
 |---|---|
-| Entrada | 8 números que o dono já sabe (faturamento, pedidos, custos, caixa) |
-| Diagnóstico | Ticket médio, margem, CMV, ponto de equilíbrio, meses de caixa |
+| Vendas | Lê o relatório exportado do PDV ou do app de delivery (CSV ou Excel) e reconhece sozinho as colunas de data, valor e canal |
+| Leitura automática | Faturamento e pedidos do último mês, variação contra o mês anterior, vendas por dia da semana e por canal, estimativa das taxas dos apps |
+| Custos | O dono informa insumos, pessoal, aluguel/contas, outros custos e caixa |
+| Diagnóstico | Ticket médio, margem, CMV, ponto de equilíbrio, meses de caixa e nota de saúde |
 | Alertas | Compara com referências de food service (ex.: CMV ideal de 28–35%) |
-| Plano de ação | LLM escreve 3 prioridades e ações de 30 dias sem jargão |
+| Plano de ação | 3 prioridades com ação concreta e economia estimada em R$, mais ações sobre o dia mais fraco e a dependência de canais |
 
-**Decisão de produto:** pedir poucos dados. Um formulário com 40 campos ninguém preenche; com 8 o dono preenche no celular entre um pedido e outro.
+**Decisão de produto:** pedir o mínimo. O relatório de vendas o dono já tem; os custos são 5 números que ele sabe de cabeça.
+
+## Como usar
+
+Abra o app, envie o relatório de vendas e preencha os custos. Para só conhecer a ferramenta, baixe o **relatório de vendas de exemplo** na barra lateral e envie de volta, ou use **Carregar exemplo**.
+
+Não precisa de nenhuma chave ou cadastro.
 
 ## Possíveis evoluções
 
-- Ler os números direto do extrato da plataforma de delivery
 - Comparar com restaurantes da mesma categoria e região (benchmark)
 - Enviar o diagnóstico mensal por WhatsApp
 
-## Como rodar
+## Publicar
 
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+Em [share.streamlit.io](https://share.streamlit.io), crie um app apontando para este repositório e o arquivo `app.py`.
 
-IA opcional: defina `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY`. Sem chave, roda em modo demonstração.
-
-> Dados fictícios. Referências de mercado são aproximadas e servem para fins de demonstração.
+> Dados de exemplo fictícios. Referências de mercado são aproximadas.
