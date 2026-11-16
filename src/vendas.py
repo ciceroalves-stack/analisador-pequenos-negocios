@@ -2,6 +2,8 @@
 e calcula faturamento, pedidos, ticket médio, canais e tendência."""
 import pandas as pd
 
+from .numeros import coluna_numerica
+
 ALIASES = {
     "data": ["data", "data do pedido", "data_pedido", "dia", "date", "criado em", "data/hora"],
     "valor": ["valor", "valor total", "total", "valor_total", "valor do pedido", "faturamento", "preço", "preco"],
@@ -22,18 +24,28 @@ def _achar(colunas, opcoes):
 
 
 def _valor(s: pd.Series) -> pd.Series:
-    if not pd.api.types.is_numeric_dtype(s):
-        s = (s.astype(str).str.replace("R$", "", regex=False).str.strip()
-             .str.replace(".", "", regex=False).str.replace(",", ".", regex=False))
-    return pd.to_numeric(s, errors="coerce")
+    return coluna_numerica(s)
+
+
+def _datas(s: pd.Series) -> pd.Series:
+    if pd.api.types.is_datetime64_any_dtype(s):
+        return s
+    txt = s.astype(str).str.strip()
+    iso = txt.str.match(r"^\d{4}-\d{2}-\d{2}")
+    out = pd.Series(pd.NaT, index=s.index, dtype="datetime64[ns]")
+    if iso.any():
+        out[iso] = pd.to_datetime(txt[iso].str[:19], errors="coerce", format="mixed")
+    if (~iso).any():
+        out[~iso] = pd.to_datetime(txt[~iso], errors="coerce", dayfirst=True, format="mixed")
+    return out
 
 
 def ler_vendas(arquivo) -> pd.DataFrame:
     nome = getattr(arquivo, "name", str(arquivo)).lower()
     if nome.endswith((".xlsx", ".xls")):
-        bruto = pd.read_excel(arquivo)
+        bruto = pd.read_excel(arquivo, dtype=str)
     else:
-        bruto = pd.read_csv(arquivo, sep=None, engine="python", encoding_errors="ignore")
+        bruto = pd.read_csv(arquivo, sep=None, engine="python", encoding_errors="ignore", dtype=str)
 
     c_data, c_valor = _achar(bruto.columns, ALIASES["data"]), _achar(bruto.columns, ALIASES["valor"])
     if not c_data or not c_valor:
@@ -41,7 +53,7 @@ def ler_vendas(arquivo) -> pd.DataFrame:
     c_canal = _achar(bruto.columns, ALIASES["canal"])
 
     df = pd.DataFrame({
-        "data": pd.to_datetime(bruto[c_data], dayfirst=True, errors="coerce"),
+        "data": _datas(bruto[c_data]),
         "valor": _valor(bruto[c_valor]),
         "canal": bruto[c_canal].astype(str) if c_canal else "Não informado",
     }).dropna(subset=["data", "valor"])
